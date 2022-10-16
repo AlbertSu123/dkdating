@@ -306,21 +306,21 @@ function App(props) {
         <Menu.Item key="/">
           <Link to="/">App Home</Link>
         </Menu.Item>
-        <Menu.Item key="/debug">
+        {/* <Menu.Item key="/debug">
           <Link to="/debug">Debug Contracts</Link>
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item key="/createprofile">
           <Link to="/createprofile">Create Profile</Link>
         </Menu.Item>
         <Menu.Item key="/predestine">
-          <Link to="/predestine">Predestine</Link>
+          <Link to="/predestine">Swipe</Link>
         </Menu.Item>
         <Menu.Item key="/destine">
-          <Link to="/destine">Destine</Link>
+          <Link to="/destine">Match</Link>
         </Menu.Item>
-        <Menu.Item key="/subgraph">
+        {/* <Menu.Item key="/subgraph">
           <Link to="/subgraph">Subgraph</Link>
-        </Menu.Item>
+        </Menu.Item> */}
       </Menu>
       <Switch style={{ display: "flex", height: "80vh" }}>
         <Route exact path="/">

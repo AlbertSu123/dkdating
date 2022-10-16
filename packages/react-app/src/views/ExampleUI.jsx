@@ -44,6 +44,7 @@ export default function ExampleUI({
             setSwipeAmount(e.target.value);
           }}
         />
+        <Button></Button>
         <Button
           style={{ marginTop: 8 }}
           class="button"
