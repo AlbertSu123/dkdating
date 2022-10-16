@@ -17,28 +17,171 @@ export default function ExampleUI({
   writeContracts,
 }) {
   const [newPurpose, setNewPurpose] = useState("loading...");
+  const [name, setName] = useState("loading...");
+  const [bio, setBio] = useState("loading...");
+  const [picture, setPicture] = useState("loading...");
+  const [amount, setAmount] = useState("loading...");
+  const [password, setPassword] = useState("loading...");
+
+  const [like, setLike] = useState("loading...");
+  const [useraddress, setUserAddress] = useState("loading...");
+  const [swipeamount, setSwipeAmount] = useState("loading...");
+
+  const [user1address, setUser1Address] = useState("loading...");
+  const [user2address, setUser2Address] = useState("loading...");
+  const [user1password, setUser1Password] = useState("loading...");
+  const [user2password, setUser2Password] = useState("loading...");
 
   return (
     <div>
-      {/*
-        ⚙️ Here is an example UI that displays and sets the purpose in your smart contract:
-      */}
-      <div style={{ border: "1px solid #cccccc", padding: 16, width: 400, margin: "auto", marginTop: 64 }}>
-        <h2>Example UI:</h2>
-        <h4>purpose: {purpose}</h4>
-        <Divider />
-        <div style={{ margin: 8 }}>
-          <Input
-            onChange={e => {
-              setNewPurpose(e.target.value);
-            }}
-          />
-          <Button
-            style={{ marginTop: 8 }}
-            onClick={async () => {
-              /* look how you call setPurpose on your contract: */
-              /* notice how you pass a call back for tx updates too */
-              const result = tx(writeContracts.DKDating.setPurpose(newPurpose), update => {
+      {/* --------------------- Create user button ----------------- */}
+      <h2>Create Profile</h2>
+      <div style={{ margin: 8 }}>
+        <Input
+          placeholder="Name"
+          onChange={e => {
+            setName(e.target.value);
+          }}
+        />
+        <Input
+          placeholder="Bio"
+          onChange={e => {
+            setBio(e.target.value);
+          }}
+        />
+        <Input
+          placeholder="Picture"
+          onChange={e => {
+            setPicture(e.target.value);
+          }}
+        />
+        <Input
+          placeholder="Amount"
+          onChange={e => {
+            setAmount(e.target.value);
+          }}
+        />
+        <Input
+          placeholder="Password"
+          onChange={e => {
+            setPassword(e.target.value);
+          }}
+        />
+        <Button
+          style={{ marginTop: 8 }}
+          onClick={async () => {
+            /* look how you call setPurpose on your contract: */
+            /* notice how you pass a call back for tx updates too */
+            console.log(name, bio, picture, amount, password);
+            const result = tx(writeContracts.DKDating.createUser(name, bio, picture, amount, password), update => {
+              console.log("📡 Transaction Update:", update);
+              if (update && (update.status === "confirmed" || update.status === 1)) {
+                console.log(" 🍾 Transaction " + update.hash + " finished!");
+                console.log(
+                  " ⛽️ " +
+                    update.gasUsed +
+                    "/" +
+                    (update.gasLimit || update.gas) +
+                    " @ " +
+                    parseFloat(update.gasPrice) / 1000000000 +
+                    " gwei",
+                );
+              }
+            });
+            console.log("awaiting metamask/web3 confirm result...", result);
+            console.log(await result);
+          }}
+        >
+          Create Profile!
+        </Button>
+      </div>
+      <Divider />
+      {/* --------------------- Swipe on User button ----------------- */}
+      <h2>Swipe on User</h2>
+      <div style={{ margin: 8 }}>
+        <Input
+          placeholder="Like?"
+          onChange={e => {
+            setLike(!!e.target.value);
+          }}
+        />
+        <Input
+          placeholder="user address"
+          onChange={e => {
+            setUserAddress(e.target.value);
+          }}
+        />
+        <Input
+          placeholder="amount"
+          onChange={e => {
+            setSwipeAmount(e.target.value);
+          }}
+        />
+        <Button
+          style={{ marginTop: 8 }}
+          onClick={async () => {
+            /* look how you call setPurpose on your contract: */
+            /* notice how you pass a call back for tx updates too */
+            console.log(name, bio, picture, amount, password);
+            const result = tx(writeContracts.DKDating.swipeOnUser(like, useraddress, swipeamount), update => {
+              console.log("📡 Transaction Update:", update);
+              if (update && (update.status === "confirmed" || update.status === 1)) {
+                console.log(" 🍾 Transaction " + update.hash + " finished!");
+                console.log(
+                  " ⛽️ " +
+                    update.gasUsed +
+                    "/" +
+                    (update.gasLimit || update.gas) +
+                    " @ " +
+                    parseFloat(update.gasPrice) / 1000000000 +
+                    " gwei",
+                );
+              }
+            });
+            console.log("awaiting metamask/web3 confirm result...", result);
+            console.log(await result);
+          }}
+        >
+          Swipe!
+        </Button>
+      </div>
+      <Divider />
+      {/* --------------------- Date button ----------------- */}
+      <h2>Go on Date!</h2>
+      <div style={{ margin: 8 }}>
+        <Input
+          placeholder="User 1 Address"
+          onChange={e => {
+            setUser1Address(!!e.target.value);
+          }}
+        />
+        <Input
+          placeholder="User 2 Address"
+          onChange={e => {
+            setUser2Address(e.target.value);
+          }}
+        />
+        <Input
+          placeholder="User 1 Password"
+          onChange={e => {
+            setUser1Password(e.target.value);
+          }}
+        />
+        <Input
+          placeholder="User 2 Password"
+          onChange={e => {
+            setUser2Password(e.target.value);
+          }}
+        />
+        <Button
+          style={{ marginTop: 8 }}
+          onClick={async () => {
+            /* look how you call setPurpose on your contract: */
+            /* notice how you pass a call back for tx updates too */
+            console.log(name, bio, picture, amount, password);
+            const result = tx(
+              writeContracts.DKDating.date(user1address, user2address, user1password, user2password),
+              update => {
                 console.log("📡 Transaction Update:", update);
                 if (update && (update.status === "confirmed" || update.status === 1)) {
                   console.log(" 🍾 Transaction " + update.hash + " finished!");
@@ -52,100 +195,14 @@ export default function ExampleUI({
                       " gwei",
                   );
                 }
-              });
-              console.log("awaiting metamask/web3 confirm result...", result);
-              console.log(await result);
-            }}
-          >
-            Set Purpose!
-          </Button>
-        </div>
-        <Divider />
-        Your Address:
-        <Address address={address} ensProvider={mainnetProvider} fontSize={16} />
-        <Divider />
-        ENS Address Example:
-        <Address
-          address="0x34aA3F359A9D614239015126635CE7732c18fDF3" /* this will show as austingriffith.eth */
-          ensProvider={mainnetProvider}
-          fontSize={16}
-        />
-        <Divider />
-        {/* use utils.formatEther to display a BigNumber: */}
-        <h2>Your Balance: {yourLocalBalance ? utils.formatEther(yourLocalBalance) : "..."}</h2>
-        <div>OR</div>
-        <Balance address={address} provider={localProvider} price={price} />
-        <Divider />
-        <div>🐳 Example Whale Balance:</div>
-        <Balance balance={utils.parseEther("1000")} provider={localProvider} price={price} />
-        <Divider />
-        {/* use utils.formatEther to display a BigNumber: */}
-        <h2>Your Balance: {yourLocalBalance ? utils.formatEther(yourLocalBalance) : "..."}</h2>
-        <Divider />
-        Your Contract Address:
-        <Address
-          address={readContracts && readContracts.DKDating ? readContracts.DKDating.address : null}
-          ensProvider={mainnetProvider}
-          fontSize={16}
-        />
-        <Divider />
-        <div style={{ margin: 8 }}>
-          <Button
-            onClick={() => {
-              /* look how you call setPurpose on your contract: */
-              tx(writeContracts.DKDating.setPurpose("🍻 Cheers"));
-            }}
-          >
-            Set Purpose to &quot;🍻 Cheers&quot;
-          </Button>
-        </div>
-        <div style={{ margin: 8 }}>
-          <Button
-            onClick={() => {
-              /*
-              you can also just craft a transaction and send it to the tx() transactor
-              here we are sending value straight to the contract's address:
-            */
-              tx({
-                to: writeContracts.DKDating.address,
-                value: utils.parseEther("0.001"),
-              });
-              /* this should throw an error about "no fallback nor receive function" until you add it */
-            }}
-          >
-            Send Value
-          </Button>
-        </div>
-        <div style={{ margin: 8 }}>
-          <Button
-            onClick={() => {
-              /* look how we call setPurpose AND send some value along */
-              tx(
-                writeContracts.DKDating.setPurpose("💵 Paying for this one!", {
-                  value: utils.parseEther("0.001"),
-                }),
-              );
-              /* this will fail until you make the setPurpose function payable */
-            }}
-          >
-            Set Purpose With Value
-          </Button>
-        </div>
-        <div style={{ margin: 8 }}>
-          <Button
-            onClick={() => {
-              /* you can also just craft a transaction and send it to the tx() transactor */
-              tx({
-                to: writeContracts.DKDating.address,
-                value: utils.parseEther("0.001"),
-                data: writeContracts.DKDating.interface.encodeFunctionData("setPurpose(string)", ["🤓 Whoa so 1337!"]),
-              });
-              /* this should throw an error about "no fallback nor receive function" until you add it */
-            }}
-          >
-            Another Example
-          </Button>
-        </div>
+              },
+            );
+            console.log("awaiting metamask/web3 confirm result...", result);
+            console.log(await result);
+          }}
+        >
+          Swipe!
+        </Button>
       </div>
 
       {/*
