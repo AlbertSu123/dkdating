@@ -17,13 +17,14 @@ contract DKDating is ERC20{
     uint lockedBal;
   }
 
-  mapping(address => User) users;
-  address[] userList;
+  mapping(address => User) public users;
+  address[] public userList;
 
   constructor() ERC20("A", "A"){
     // what should we do on deploy?
   }
 
+  // Create a user and mint them tokens
   function createUser(string memory name, string memory bio, string memory picture, uint amount, uint password) public {
     require(users[msg.sender].amount == 0);
     _mint(msg.sender, amount);
@@ -48,12 +49,17 @@ contract DKDating is ERC20{
     }
   }
 
+  // If you match, users will get paid!
   function date(address p1, address p2, uint pw1, uint pw2) public {
     require(users[p1].password == pw1 && users[p2].password == pw2, "Both users must agree on date!");
     _mint(p1, users[p1].lockedBal);
     _mint(p2, users[p2].lockedBal);
     users[p1].lockedBal = 0;
     users[p2].lockedBal = 0;
+  }
+
+  function balance(address a) public view returns (uint256) {
+    return balanceOf(a);
   }
 
 
