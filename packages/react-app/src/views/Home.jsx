@@ -111,7 +111,7 @@ function Home({ yourLocalBalance, readContracts }) {
       </div>
       <div style={{ margin: 32 }}>
         <span style={{ marginRight: 8 }}>💭</span>
-        Check out the <Link to="/hints">"Hints"</Link> tab for more tips.
+        Check out the <Link to="/createprofile">"CreateProfile"</Link> tab for more tips.
       </div>
       <div style={{ margin: 32 }}>
         <span style={{ marginRight: 8 }}>🛠</span>
