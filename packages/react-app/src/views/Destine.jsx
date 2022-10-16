@@ -5,7 +5,7 @@ import { SyncOutlined } from "@ant-design/icons";
 
 import { Address, Balance, Events } from "../components";
 
-export default function ExampleUI({
+export default function Destine({
   purpose,
   address,
   mainnetProvider,
@@ -18,10 +18,6 @@ export default function ExampleUI({
 }) {
   const [newPurpose, setNewPurpose] = useState("loading...");
 
-  const [like, setLike] = useState("loading...");
-  const [useraddress, setUserAddress] = useState("loading...");
-  const [swipeamount, setSwipeAmount] = useState("loading...");
-
   const [user1address, setUser1Address] = useState("loading...");
   const [user2address, setUser2Address] = useState("loading...");
   const [user1password, setUser1Password] = useState("loading...");
@@ -29,25 +25,31 @@ export default function ExampleUI({
 
   return (
     <div>
-      {/* --------------------- Swipe on User button ----------------- */}
-      <h2>Swipe on User</h2>
+      {/* --------------------- Date button ----------------- */}
+      <h2>Go on Date!</h2>
       <div style={{ margin: 8 }}>
         <Input
-          placeholder="Like? (true or false)"
+          placeholder="User 1 Address"
           onChange={e => {
-            setLike(!!e.target.value);
+            setUser1Address(!!e.target.value);
           }}
         />
         <Input
-          placeholder="user address"
+          placeholder="User 2 Address"
           onChange={e => {
-            setUserAddress(e.target.value);
+            setUser2Address(e.target.value);
           }}
         />
         <Input
-          placeholder="amount"
+          placeholder="User 1 Password"
           onChange={e => {
-            setSwipeAmount(e.target.value);
+            setUser1Password(e.target.value);
+          }}
+        />
+        <Input
+          placeholder="User 2 Password"
+          onChange={e => {
+            setUser2Password(e.target.value);
           }}
         />
         <Button
@@ -55,29 +57,31 @@ export default function ExampleUI({
           onClick={async () => {
             /* look how you call setPurpose on your contract: */
             /* notice how you pass a call back for tx updates too */
-            const result = tx(writeContracts.DKDating.swipeOnUser(like, useraddress, swipeamount), update => {
-              console.log("📡 Transaction Update:", update);
-              if (update && (update.status === "confirmed" || update.status === 1)) {
-                console.log(" 🍾 Transaction " + update.hash + " finished!");
-                console.log(
-                  " ⛽️ " +
-                    update.gasUsed +
-                    "/" +
-                    (update.gasLimit || update.gas) +
-                    " @ " +
-                    parseFloat(update.gasPrice) / 1000000000 +
-                    " gwei",
-                );
-              }
-            });
+            const result = tx(
+              writeContracts.DKDating.date(user1address, user2address, user1password, user2password),
+              update => {
+                console.log("📡 Transaction Update:", update);
+                if (update && (update.status === "confirmed" || update.status === 1)) {
+                  console.log(" 🍾 Transaction " + update.hash + " finished!");
+                  console.log(
+                    " ⛽️ " +
+                      update.gasUsed +
+                      "/" +
+                      (update.gasLimit || update.gas) +
+                      " @ " +
+                      parseFloat(update.gasPrice) / 1000000000 +
+                      " gwei",
+                  );
+                }
+              },
+            );
             console.log("awaiting metamask/web3 confirm result...", result);
             console.log(await result);
           }}
         >
-          Swipe!
+          Date!
         </Button>
       </div>
-      <Divider />
     </div>
   );
 }

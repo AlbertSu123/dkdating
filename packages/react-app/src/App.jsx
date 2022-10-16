@@ -32,6 +32,8 @@ import deployedContracts from "./contracts/hardhat_contracts.json";
 import { getRPCPollTime, Transactor, Web3ModalSetup } from "./helpers";
 import { Home, ExampleUI, Hints, Subgraph } from "./views";
 import { useStaticJsonRPC } from "./hooks";
+import CreateProfile from "./views/Hints";
+import Destine from "./views/Destine";
 
 const { ethers } = require("ethers");
 /*
@@ -303,14 +305,14 @@ function App(props) {
         <Menu.Item key="/debug">
           <Link to="/debug">Debug Contracts</Link>
         </Menu.Item>
-        <Menu.Item key="/hints">
-          <Link to="/hints">Hints</Link>
+        <Menu.Item key="/createprofile">
+          <Link to="/createprofile">Create Profile</Link>
         </Menu.Item>
-        <Menu.Item key="/exampleui">
-          <Link to="/exampleui">ExampleUI</Link>
+        <Menu.Item key="/predestine">
+          <Link to="/predestine">Predestine</Link>
         </Menu.Item>
-        <Menu.Item key="/mainnetdai">
-          <Link to="/mainnetdai">Mainnet DAI</Link>
+        <Menu.Item key="/destine">
+          <Link to="/destine">Destine</Link>
         </Menu.Item>
         <Menu.Item key="/subgraph">
           <Link to="/subgraph">Subgraph</Link>
@@ -339,15 +341,21 @@ function App(props) {
             contractConfig={contractConfig}
           />
         </Route>
-        <Route path="/hints">
-          <Hints
+        <Route path="/createprofile">
+          <CreateProfile
             address={address}
-            yourLocalBalance={yourLocalBalance}
+            userSigner={userSigner}
             mainnetProvider={mainnetProvider}
+            localProvider={localProvider}
+            yourLocalBalance={yourLocalBalance}
             price={price}
+            tx={tx}
+            writeContracts={writeContracts}
+            readContracts={readContracts}
+            purpose={purpose}
           />
         </Route>
-        <Route path="/exampleui">
+        <Route path="/predestine">
           <ExampleUI
             address={address}
             userSigner={userSigner}
@@ -361,16 +369,18 @@ function App(props) {
             purpose={purpose}
           />
         </Route>
-        <Route path="/mainnetdai">
-          <Contract
-            name="DAI"
-            customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.DAI}
-            signer={userSigner}
-            provider={mainnetProvider}
+        <Route path="/destine">
+          <Destine
             address={address}
-            blockExplorer="https://etherscan.io/"
-            contractConfig={contractConfig}
-            chainId={1}
+            userSigner={userSigner}
+            mainnetProvider={mainnetProvider}
+            localProvider={localProvider}
+            yourLocalBalance={yourLocalBalance}
+            price={price}
+            tx={tx}
+            writeContracts={writeContracts}
+            readContracts={readContracts}
+            purpose={purpose}
           />
           {/*
             <Contract
