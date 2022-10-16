@@ -1,8 +1,8 @@
 import { BigInt, Address } from "@graphprotocol/graph-ts";
 import {
-  YourContract,
+  DKDating,
   SetPurpose,
-} from "../generated/YourContract/YourContract";
+} from "../generated/DKDating/DKDating";
 import { Purpose, Sender } from "../generated/schema";
 
 export function handleSetPurpose(event: SetPurpose): void {
