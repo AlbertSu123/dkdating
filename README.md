@@ -35,7 +35,7 @@ yarn start
 
 ```bash
 cd scaffold-eth
-yarn deploy
+yarn deploy`
 ```
 
 🔏 Edit your smart contract `DKDating.sol` in `packages/hardhat/contracts`
