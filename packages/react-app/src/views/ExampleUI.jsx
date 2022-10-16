@@ -20,14 +20,6 @@ export default function ExampleUI({
   const [like, setLike] = useState("loading...");
   const [useraddress, setUserAddress] = useState("loading...");
   const [swipeamount, setSwipeAmount] = useState("loading...");
-  const numUsers = useContractReader(readContracts, "DKDating", "numUsers");
-  console.log(numUsers);
-  let randi = Math.floor(Math.random() * numUsers);
-  console.log(randi);
-  const randomAddr = useContractReader(readContracts, "DKDating", "userList", [randi]);
-  console.log(randomAddr);
-  const userInfo = useContractReader(readContracts, "DKDating", "users", [randomAddr]);
-  console.log(userInfo);
 
   return (
     <div>
