@@ -27,7 +27,9 @@ export default function ExampleUI({
       {/* --------------------- Swipe on User button ----------------- */}
       <h2>Swipe on User</h2>
       <Divider></Divider>
-      <a href="https://www.w3schools.com">Click here for more profiles!</a>
+      <a href="https://testnet.snowtrace.io/address/0xD725850233887172667fb2Ca41589a8E1CC183E8">
+        Click here for more profiles!
+      </a>
       <Divider></Divider>
       <div style={{ margin: 8 }}>
         <Input
