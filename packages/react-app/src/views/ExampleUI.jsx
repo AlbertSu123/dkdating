@@ -20,11 +20,15 @@ export default function ExampleUI({
   const [like, setLike] = useState("loading...");
   const [useraddress, setUserAddress] = useState("loading...");
   const [swipeamount, setSwipeAmount] = useState("loading...");
-
+  const [randInt, setRandInt] = useState(0);
+  const _randInt = parseInt(useContractReader(readContracts, "DKDating", "numUsers"));
   return (
     <div>
       {/* --------------------- Swipe on User button ----------------- */}
       <h2>Swipe on User</h2>
+      <Divider></Divider>
+      <a href="https://www.w3schools.com">Click here for more profiles!</a>
+      <Divider></Divider>
       <div style={{ margin: 8 }}>
         <Input
           placeholder="Like? (true or false)"
@@ -44,7 +48,7 @@ export default function ExampleUI({
             setSwipeAmount(e.target.value);
           }}
         />
-        <Button></Button>
+
         <Button
           style={{ marginTop: 8 }}
           class="button"
