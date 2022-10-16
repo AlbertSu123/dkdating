@@ -16,8 +16,6 @@ export default function Destine({
   readContracts,
   writeContracts,
 }) {
-  const [newPurpose, setNewPurpose] = useState("loading...");
-
   const [user1address, setUser1Address] = useState("loading...");
   const [user2address, setUser2Address] = useState("loading...");
   const [user1password, setUser1Password] = useState("loading...");
@@ -31,7 +29,7 @@ export default function Destine({
         <Input
           placeholder="User 1 Address"
           onChange={e => {
-            setUser1Address(!!e.target.value);
+            setUser1Address(e.target.value);
           }}
         />
         <Input

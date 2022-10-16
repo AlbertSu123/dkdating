@@ -15,21 +15,26 @@ contract DKDating is ERC20{
     address[] matches;
     uint password;
     uint lockedBal;
+    string phonenumber;
   }
 
   mapping(address => User) public users;
   address[] public userList;
+  uint public numUsers;
 
-  constructor() ERC20("A", "A"){
+  event Match(string phonenumber1, string phonenumber2);
+
+  constructor() ERC20("DKDating", "DK"){
     // what should we do on deploy?
   }
 
   // Create a user and mint them tokens
-  function createUser(string memory name, string memory bio, string memory picture, uint amount, uint password) public {
+  function createUser(string memory name, string memory bio, string memory picture, string memory phonenumber, uint amount, uint password) public {
     require(users[msg.sender].amount == 0);
     _mint(msg.sender, amount);
-    users[msg.sender] = User(name, bio, picture, amount, new address[](0), new address[](0), password, 0);
+    users[msg.sender] = User(name, bio, picture, amount, new address[](0), new address[](0), password, 0, phonenumber);
     userList.push(msg.sender);
+    numUsers += 1;
   }
 
   function swipeOnUser(bool yes, address user, uint amount) public {
@@ -56,6 +61,7 @@ contract DKDating is ERC20{
     _mint(p2, users[p2].lockedBal);
     users[p1].lockedBal = 0;
     users[p2].lockedBal = 0;
+    emit Match(users[p1].phonenumber, users[p2].phonenumber);
   }
 
   function balance(address a) public view returns (uint256) {

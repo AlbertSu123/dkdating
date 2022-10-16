@@ -1,4 +1,27 @@
 .App {
   text-align: center;
   padding-left: calc(100vw - 100%);
+  --main-color: #e27413;
+  background-color: #bb2929;
+}
+#root {
+  height: 100%;
+}
+button {
+    background-color: #1dc5a3;
+    
+  }
+.header {
+  background-color: #e27413;
+  
+}
+body {
+    background-color: var(--background-color);
+    
+}
+.maintext {
+  color: '#ffffff';
+}
+.ant-menu-item-selected {
+  background-color: #e53838 !important;
 }

@@ -4,6 +4,7 @@ import { utils } from "ethers";
 import { SyncOutlined } from "@ant-design/icons";
 
 import { Address, Balance, Events } from "../components";
+import { useContractReader } from "eth-hooks";
 
 export default function ExampleUI({
   purpose,
@@ -16,16 +17,17 @@ export default function ExampleUI({
   readContracts,
   writeContracts,
 }) {
-  const [newPurpose, setNewPurpose] = useState("loading...");
-
   const [like, setLike] = useState("loading...");
   const [useraddress, setUserAddress] = useState("loading...");
   const [swipeamount, setSwipeAmount] = useState("loading...");
-
-  const [user1address, setUser1Address] = useState("loading...");
-  const [user2address, setUser2Address] = useState("loading...");
-  const [user1password, setUser1Password] = useState("loading...");
-  const [user2password, setUser2Password] = useState("loading...");
+  const numUsers = useContractReader(readContracts, "DKDating", "numUsers");
+  console.log(numUsers);
+  let randi = Math.floor(Math.random() * numUsers);
+  console.log(randi);
+  const randomAddr = useContractReader(readContracts, "DKDating", "userList", [randi]);
+  console.log(randomAddr);
+  const userInfo = useContractReader(readContracts, "DKDating", "users", [randomAddr]);
+  console.log(userInfo);
 
   return (
     <div>
@@ -52,6 +54,7 @@ export default function ExampleUI({
         />
         <Button
           style={{ marginTop: 8 }}
+          class="button"
           onClick={async () => {
             /* look how you call setPurpose on your contract: */
             /* notice how you pass a call back for tx updates too */

@@ -259,9 +259,9 @@ function App(props) {
   return (
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name */}
-      <Header>
+      <Header className="header">
         {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
-        <div style={{ position: "relative", display: "flex", flexDirection: "column" }}>
+        <div class="header" style={{ position: "relative", display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", flex: 1 }}>
             {USE_NETWORK_SELECTOR && (
               <div style={{ marginRight: 20 }}>
@@ -298,7 +298,11 @@ function App(props) {
         logoutOfWeb3Modal={logoutOfWeb3Modal}
         USE_NETWORK_SELECTOR={USE_NETWORK_SELECTOR}
       />
-      <Menu style={{ textAlign: "center", marginTop: 20 }} selectedKeys={[location.pathname]} mode="horizontal">
+      <Menu
+        style={{ textAlign: "center", marginTop: 20, backgroundColor: "#bb2929", color: "#ffffff" }}
+        selectedKeys={[location.pathname]}
+        mode="horizontal"
+      >
         <Menu.Item key="/">
           <Link to="/">App Home</Link>
         </Menu.Item>
@@ -318,8 +322,7 @@ function App(props) {
           <Link to="/subgraph">Subgraph</Link>
         </Menu.Item>
       </Menu>
-
-      <Switch>
+      <Switch style={{ display: "flex", height: "80vh" }}>
         <Route exact path="/">
           {/* pass in any web3 props to this Home component. For example, yourLocalBalance */}
           <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />
@@ -402,7 +405,6 @@ function App(props) {
           />
         </Route>
       </Switch>
-
       <ThemeSwitch />
 
       {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
